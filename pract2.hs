@@ -11,9 +11,9 @@ sign x
 
 howManyEqual :: Int -> Int -> Int -> Int 
 howManyEqual x y z
-    | x == y && y == z = 3
-    | x /= y && y /= z && x /= z = 0
-    |otherwise = 2
+  | x == y && y == z = 3
+  | x /= y && y /= z && x /= z = 0
+  |otherwise = 2
 
 sumDiagonalLengths :: Float -> Float -> Float -> Float
 sumDiagonalLengths x y z = xd + yd + zd
@@ -29,8 +29,6 @@ taxiFare k
             | otherwise = fromIntegral (k) * 0.5 + 2.2
 
 
-
-
 howManyAboveAverage :: Int -> Int -> Int -> Int
 howManyAboveAverage x y z 
   | fromIntegral(maximum[x, y, z]) == avg = 0
@@ -42,8 +40,18 @@ howManyAboveAverage x y z
   avg = fromIntegral(x + y + z) / 3
 
 
-
-  validDate :: Int -> Int -> Bool
-  validDate d m 
-    | d == 29 && m == 13 = True
+validDate :: Int -> Int -> Bool
+validDate d m 
+    | (d <= 28 && m == 2) = True
+    | d <= 30 =  m `elem` [4,6,9,11] 
+    | d <=31  =  m `elem` [1,3,5,7,8,10,12]
     | otherwise = False
+
+
+daysInMonth :: Int -> Int -> Int
+daysInMonth m y
+    | m `elem` [4,6,9,11] = 30
+    | m `elem` [1,3,5,7,8,10,12] = 31
+    | m == 2 && y `mod` 4 ==0 = 29
+    |otherwise = 28
+
