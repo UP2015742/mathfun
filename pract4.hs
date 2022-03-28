@@ -49,7 +49,7 @@ firstNumbers :: Int -> [Int]
 firstNumbers n = [1..n]
 
 firstSquares :: Int -> [Int]
-firstSquares n = [x ^ 2 | x <- firstNumbers(n)]
+firstSquares n = [x ^ 2 | x <- firstNumbers n]
 
 capitalise :: String -> String
 capitalise text = [toUpper c | c <- text]
@@ -66,6 +66,17 @@ gradeStudents stMk = [ (st, grade (st,mk)) | (st,mk) <- stMk ]
 
 duplicate:: String -> Int -> String
 duplicate text n 
-    | n > 1 = text ++ duplicate text (n - 1)
-    | otherwise = text
+    | n > 0 = text ++ duplicate text (n - 1)
+    | otherwise = ""
+
+divisors :: Int -> [Int]
+divisors n = [x | x <- [1..n], n`mod`x == 0 ]
+
+isPrime :: Int -> Bool
+isPrime n 
+    | length (divisors n) == 2 = True
+    |otherwise = False
+
+split:: [(a,b)] -> ([a],[b])
+split toSplit = ([a | (a, _) <- toSplit] , [ b | ( _ , b) <-toSplit])
 
