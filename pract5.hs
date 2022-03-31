@@ -26,40 +26,35 @@ andAll [] = True
 andAll (x:xs) = x && andAll xs
 
 countElems :: Int -> [Int] -> Int
+countElems n [] = 0
 countElems n (x:xs)
-    | listLength (x:xs) == 1 && n == x = 1
-    | listLength (x:xs) == 1 = 0
     | n == x = 1 + countElems n (xs)
     | n /= x = countElems n (xs)
-    |otherwise = 0
-
+  
 removeAll :: Int -> [Int] -> [Int]
+removeAll n [] = []
 removeAll n (x:xs)
-    | listLength (x:xs) == 1 && n == x = []
-    | listLength (x:xs) == 1 = [x]
-    -- | n /= x = [x] ++ removeAll n xs 
-    | n /= x = x: removeAll n xs 
-    | otherwise= removeAll n xs
+    | n /= x = [x] ++ removeAll n xs
+    |otherwise = removeAll n xs
 
 listMarks :: String -> [StudentMark] -> [Int]
 listMarks name stmks = [ mk | (st,mk) <- stmks , name == st ]
 
 sorted :: [Int] -> Bool
+sorted [] = True
+sorted (x:y:[]) = x <= y
 sorted (x:y:xs)
-    | xs == [] && x <= y = True
-    | x <= y = True == sorted (y:xs)
+    | x <= y = sorted (y:xs)
     |otherwise = False
 
 prefix :: [Int] -> [Int] -> Bool
 prefix [] _ = True
 prefix _ [] = False
 prefix (a:as) (b:bs) = (a==b) && prefix as bs
-    -- | a == b = prefix as bs
-    -- | otherwise = False
 
 subSequence :: [Int] -> [Int] -> Bool
 subSequence [] _ = True
 subSequence _ [] = False
-subSequence l (b:bs)
-    | prefix l (b:bs) = True
-    | otherwise = subSequence l bs
+subSequence a (b:bs)
+    | prefix a (b:bs) = True
+    | otherwise = subSequence a bs
